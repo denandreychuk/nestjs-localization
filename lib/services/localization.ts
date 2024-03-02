@@ -136,45 +136,7 @@ export class LocalizationService {
     if (!isNaN(+value)) return replaceAll(text, `:${key}`, value);
 
     // if value is a string
-    let lowerCaseText = text.toLowerCase();
-    const keyStartIdx = lowerCaseText.indexOf(key);
-    const identifier: string = text.substr(
-      keyStartIdx,
-      keyStartIdx + key.length
-    );
-
-    const caseType = isUpperCase(identifier)
-      ? this.caseTypes.UPPER_CASE
-      : isLowerCase(identifier)
-      ? this.caseTypes.LOWER_CASE
-      : isSentenceCase(identifier)
-      ? this.caseTypes.SENTENCE_CASE
-      : this.caseTypes.UNKNOWN;
-
-    text = replaceAll(
-      text,
-      `:${
-        caseType === this.caseTypes.UPPER_CASE
-          ? key.toUpperCase()
-          : caseType === this.caseTypes.LOWER_CASE
-          ? key.toLowerCase()
-          : caseType === this.caseTypes.SENTENCE_CASE
-          ? key[0].toUpperCase() + key.slice(1)
-          : key
-      }`,
-      () => {
-        switch (caseType) {
-          case this.caseTypes.UPPER_CASE:
-            return value.toUpperCase();
-          case this.caseTypes.LOWER_CASE:
-            return value.toLowerCase();
-          case this.caseTypes.SENTENCE_CASE:
-            return value[0].toUpperCase() + value.slice(1);
-          default:
-            return value;
-        }
-      }
-    );
+    text = replaceAll(text, `:${key}`, value);
     return text;
   }
 
